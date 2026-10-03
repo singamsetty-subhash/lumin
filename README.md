@@ -18,3 +18,4 @@ Open http://localhost:8080
 ## Build a deployable jar
     mvn clean package
     java -jar target/lumin-site-1.0.0.jar
+# lumin
