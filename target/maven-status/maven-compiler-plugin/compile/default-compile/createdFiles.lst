@@ -1,6 +1,6 @@
 com\lumin\site\EnquiryRepository.class
-com\lumin\site\EnquiryRequest.class
-com\lumin\site\EnquiryController.class
 com\lumin\site\Enquiry.class
-com\lumin\site\LuminApplication.class
+com\lumin\site\EnquiryRequest.class
 com\lumin\site\MailService.class
+com\lumin\site\EnquiryController.class
+com\lumin\site\LuminApplication.class

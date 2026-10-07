@@ -24,8 +24,8 @@ public class EnquiryController {
     private final MailService mail;
     private final EnquiryRepository repository;
 
-    public EnquiryController(MailService mail, EnquiryRepository repository) { 
-        this.mail = mail; 
+    public EnquiryController(MailService mail, EnquiryRepository repository) {
+        this.mail = mail;
         this.repository = repository;
     }
 
@@ -36,7 +36,7 @@ public class EnquiryController {
 
     @PostMapping("/enquiry")
     public ResponseEntity<Map<String, Object>> submit(@Valid @RequestBody EnquiryRequest req,
-                                                      HttpServletRequest http) {
+            HttpServletRequest http) {
         // Honeypot filled in => bot. Pretend success, send nothing.
         if (req.website() != null && !req.website().isBlank()) {
             return ResponseEntity.ok(Map.of("success", true));
@@ -58,13 +58,14 @@ public class EnquiryController {
             enquiry.setMessage(req.message());
             enquiry.setPreferred(req.preferred());
             repository.save(enquiry);
-            
+
             mail.sendEnquiry(req);
             return ResponseEntity.ok(Map.of("success", true));
         } catch (Exception e) {
             log.error("Enquiry email failed", e);
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-                    .body(Map.of("success", false, "error", "We could not send your enquiry right now."));
+                    .body(Map.of("success", false, "error",
+                            "We could not send your enquiry right now. our Team will Contact you "));
         }
     }
 
@@ -78,8 +79,10 @@ public class EnquiryController {
         long now = System.currentTimeMillis(), cutoff = now - 3_600_000L;
         Deque<Long> q = hits.computeIfAbsent(ip, k -> new ArrayDeque<>());
         synchronized (q) {
-            while (!q.isEmpty() && q.peekFirst() < cutoff) q.pollFirst();
-            if (q.size() >= MAX_PER_HOUR) return true;
+            while (!q.isEmpty() && q.peekFirst() < cutoff)
+                q.pollFirst();
+            if (q.size() >= MAX_PER_HOUR)
+                return true;
             q.addLast(now);
             return false;
         }
