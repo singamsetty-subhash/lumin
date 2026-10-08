@@ -446,6 +446,7 @@
       max-width: 700px;
       margin: 0 auto 50px;
     }
+
     .experts-badge {
       display: inline-flex;
       align-items: center;
@@ -460,18 +461,23 @@
       margin-bottom: 16px;
       border: 1px solid #d3e2f2;
     }
+
     .experts-head h2 {
       font-size: clamp(2rem, 4vw, 2.8rem);
       margin-bottom: 16px;
     }
+
     .text-gradient {
       background: linear-gradient(90deg, #1a4f8b, #4ca1af);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .experts-head .lead {
       margin: 0 auto;
     }
+
     .experts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -479,14 +485,16 @@
       max-width: 900px;
       margin: 0 auto;
     }
+
     .expert-card {
       background: #fff;
       border-radius: 20px;
       padding: 40px 30px;
       text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
       border: 1px solid var(--line);
     }
+
     .exp-avatar {
       width: 120px;
       height: 120px;
@@ -500,13 +508,20 @@
       color: #fff;
       box-shadow: 0 0 0 8px #f5f8fa;
     }
-    .exp-blue { background: #003366; }
-    .exp-gold { background: #c29b4e; }
-    
+
+    .exp-blue {
+      background: #003366;
+    }
+
+    .exp-gold {
+      background: #c29b4e;
+    }
+
     .expert-card h3 {
       font-size: 1.4rem;
       margin-bottom: 12px;
     }
+
     .exp-role {
       display: inline-flex;
       align-items: center;
@@ -520,15 +535,22 @@
       color: #fff;
       text-transform: uppercase;
     }
-    .exp-role-blue { background: #004b99; }
-    .exp-role-gold { background: #d0a443; }
-    
+
+    .exp-role-blue {
+      background: #004b99;
+    }
+
+    .exp-role-gold {
+      background: #d0a443;
+    }
+
     .expert-card p {
       color: var(--muted);
       font-size: 0.95rem;
       margin-bottom: 24px;
       line-height: 1.6;
     }
+
     .exp-tags {
       display: flex;
       flex-wrap: wrap;
@@ -536,6 +558,7 @@
       gap: 8px;
       margin-bottom: 30px;
     }
+
     .exp-tags span {
       background: #eef4fc;
       color: #2b5c92;
@@ -544,12 +567,14 @@
       font-size: 0.8rem;
       font-weight: 600;
     }
+
     .exp-stats {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
       margin-bottom: 30px;
     }
+
     .stat-box {
       background: #f8fafc;
       padding: 14px 8px;
@@ -558,21 +583,25 @@
       flex-direction: column;
       gap: 4px;
     }
+
     .stat-box strong {
       font-size: 1.15rem;
       color: var(--ink);
       font-weight: 800;
     }
+
     .stat-box span {
       font-size: 0.7rem;
       color: var(--muted);
       font-weight: 600;
     }
+
     .exp-social {
       display: flex;
       justify-content: center;
       gap: 12px;
     }
+
     .exp-social a {
       width: 42px;
       height: 42px;
@@ -584,10 +613,12 @@
       color: var(--muted);
       transition: all 0.2s;
     }
+
     .exp-social a:hover {
       background: var(--accent);
       color: #fff;
     }
+
     .exp-social svg {
       width: 18px;
       height: 18px;
@@ -974,6 +1005,39 @@
       </div>
     </section>
 
+    <section class="insights"
+      style="background-image: radial-gradient(circle at center, var(--line) 1px, transparent 1px); background-size: 40px 40px; padding: 100px 0;">
+      <div class="wrap" style="text-align: center;">
+        <h4
+          style="color: var(--ink2); text-transform: uppercase; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 12px;">
+          Company Success</h4>
+        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--ink); margin-bottom: 56px;">
+          Some interesting insights about our consulting services</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px;">
+          <div>
+            <div style="font-size: 4.5rem; font-weight: 800; color: var(--ink2); line-height: 1;">6<span
+                style="font-size: 2.5rem;">+</span></div>
+            <div style="color: var(--muted); font-size: 1.1rem; margin-top: 12px;">Years of Excellence</div>
+          </div>
+          <div>
+            <div style="font-size: 4.5rem; font-weight: 800; color: var(--ink2); line-height: 1;">100<span
+                style="font-size: 2.5rem;">%</span></div>
+            <div style="color: var(--muted); font-size: 1.1rem; margin-top: 12px;">Client Satisfaction</div>
+          </div>
+          <div>
+            <div style="font-size: 4.5rem; font-weight: 800; color: var(--ink2); line-height: 1;">100<span
+                style="font-size: 2.5rem;">+</span></div>
+            <div style="color: var(--muted); font-size: 1.1rem; margin-top: 12px;">Labs Accredited</div>
+          </div>
+          <div>
+            <div style="font-size: 4.5rem; font-weight: 800; color: var(--ink2); line-height: 1;">8</div>
+            <div style="color: var(--muted); font-size: 1.1rem; margin-top: 12px;">Expert Consultants</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="services" class="alt">
       <div class="wrap">
         <h2>Services</h2>
@@ -1025,6 +1089,151 @@
       </div>
     </section>
 
+    <section id="lab-recognition" style="background: #fcfdfe; padding-top: 80px; padding-bottom: 80px;">
+      <div class="wrap" style="text-align: center;">
+        <h2 style="font-size: 2.2rem; color: #1a2332; margin-bottom: 12px; font-weight: 800;">LAB Recognition</h2>
+        <div style="width: 50px; height: 3px; background: #3b82f6; margin: 0 auto 24px; border-radius: 2px;"></div>
+        <p style="color: #64748b; font-size: 1.05rem; max-width: 600px; margin: 0 auto 48px; line-height: 1.6;">We
+          assist laboratories in obtaining various government recognitions and certifications</p>
+
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; text-align: left;">
+
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #dcfce7; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">FSSAI Recognition</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Food Safety Standards</p>
+          </div>
+
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0369a1" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="3"></circle>
+                <line x1="12" y1="22" x2="12" y2="8"></line>
+                <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">EIC Recognition</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Export Inspection Council</p>
+          </div>
+
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #f3e8ff; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7e22ce" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">BIS Recognition</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Bureau of Indian Standards</p>
+          </div>
+
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #ffedd5; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c2410c" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">APEDA Recognition</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Agricultural Products Export</p>
+          </div>
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #fef9c3; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a16207" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">AGMARK Recognition
+            </h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Agricultural Grading</p>
+          </div>
+
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #ccfbf1; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">TEA BOARD Recognition
+            </h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Tea Board Approval</p>
+          </div>
+
+          <div
+            style="background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+            <div
+              style="width: 48px; height: 48px; border-radius: 12px; background: #d1fae5; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 16V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v12"></path>
+                <polygon points="12 4 8 10 16 10"></polygon>
+                <polygon points="12 10 7 17 17 17"></polygon>
+                <path d="M12 17v7"></path>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.15rem; color: #1e293b; margin-bottom: 6px; font-weight: 700;">MOEF Recognition</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">Environment &amp; Forests</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!----1.--------------------------------------------------------->
+    <section class="dark">
+      <div class="wrap">
+        <h2>Recognition areas we support</h2>
+        <p class="lead">Beyond NABL, we help laboratories pursue the recognitions that apply to their sector.</p>
+        <ul class="chips">
+          <li>NABL</li>
+          <li>FSSAI</li>
+          <li>EIC</li>
+          <li>BIS</li>
+          <li>APEDA</li>
+          <li>AGMARK</li>
+          <li>Tea Board</li>
+          <li>MOEF-related recognition &amp; compliance</li>
+          <li>NABL-DGAQA Integrated Assessment</li>
+        </ul>
+      </div>
+    </section>
+
+    <!--------------------------------------------------------->
     <section>
       <div class="wrap">
         <h2>Our approach</h2>
@@ -1065,25 +1274,42 @@
         </div>
       </div>
     </section>
-
-    <section class="dark">
+    <section id="industries">
       <div class="wrap">
-        <h2>Recognition areas we support</h2>
-        <p class="lead">Beyond NABL, we help laboratories pursue the recognitions that apply to their sector.</p>
-        <ul class="chips">
-          <li>NABL</li>
-          <li>FSSAI</li>
-          <li>EIC</li>
-          <li>BIS</li>
-          <li>APEDA</li>
-          <li>AGMARK</li>
-          <li>Tea Board</li>
-          <li>MOEF-related recognition &amp; compliance</li>
-          <li>NABL-DGAQA Integrated Assessment</li>
-        </ul>
+        <h2>Industries &amp; areas we support</h2>
+        <div class="client-grid">
+          <div class="client-card">
+            <img src="images/labs/food.jpg" alt="Food & Agriculture">
+            <div class="client-name">Food &amp; Agriculture Laboratories</div>
+          </div>
+          <div class="client-card">
+            <img src="images/labs/environment.jpg" alt="Environmental">
+            <div class="client-name">Environmental Testing Laboratories</div>
+          </div>
+          <div class="client-card">
+            <img src="images/labs/pharmacy.jpg" alt="Pharmaceutical">
+            <div class="client-name">Pharmaceutical Laboratories</div>
+          </div>
+          <div class="client-card">
+            <img src="images/labs/engineering.jpg" alt="Engineering">
+            <div class="client-name">Engineering &amp; Materials Testing</div>
+          </div>
+          <div class="client-card">
+            <img src="images/labs/government.jpg" alt="Government">
+            <div class="client-name">Government &amp; Institutional Laboratories</div>
+          </div>
+          <div class="client-card">
+            <img src="images/labs/specialized.png" alt="Specialized">
+            <div class="client-name">Specialized Testing Facilities</div>
+          </div>
+          <div class="client-card">
+            <img src="images/labs/dedence.jpg" alt="Defence">
+            <div class="client-name">Defence / Aviation-related assessment support</div>
+          </div>
+        </div>
       </div>
     </section>
-
+    <!--2.-----------------------------------------!-->
     <section id="industries">
       <div class="wrap">
         <h2>Industries &amp; areas we support</h2>
@@ -1098,6 +1324,7 @@
         </ul>
       </div>
     </section>
+    <!-------------------------------------------!-->
 
     <section id="clients" class="alt">
       <div class="wrap">
@@ -1162,65 +1389,92 @@
       <div class="wrap">
         <div class="experts-head">
           <div class="experts-badge">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> 
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path
+                d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+            </svg>
             MEET OUR EXPERTS
           </div>
           <h2>The Minds Behind <span class="text-gradient">Success</span></h2>
-          <p class="lead">Our team of dedicated professionals brings years of experience and expertise to guide your laboratory towards excellence</p>
+          <p class="lead">Our team of dedicated professionals brings years of experience and expertise to guide your
+            laboratory towards excellence</p>
         </div>
-        
+
         <div class="experts-grid">
           <!-- Card 1 -->
           <div class="expert-card">
             <div class="exp-avatar exp-blue">SP</div>
             <h3>SVRK Prasad</h3>
-            <div class="exp-role exp-role-blue"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg> CEO &amp; CHIEF CONSULTANT</div>
-            <p>With over 25+ years of experience in laboratory accreditation and quality management, leading Lumin Consultancy to help 100+ labs achieve excellence.</p>
-            
+            <div class="exp-role exp-role-blue"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path
+                  d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg> CEO &amp; CHIEF CONSULTANT</div>
+            <p>With over 25+ years of experience in laboratory accreditation and quality management, leading Lumin
+              Consultancy to help 100+ labs achieve excellence.</p>
+
             <div class="exp-tags">
               <span>NABL Expert</span>
               <span>ISO 17025</span>
               <span>Quality Audit</span>
               <span>Training</span>
             </div>
-            
+
             <div class="exp-stats">
               <div class="stat-box"><strong>25+</strong><span>Years Exp.</span></div>
               <div class="stat-box"><strong>100+</strong><span>Labs Guided</span></div>
               <div class="stat-box"><strong>500+</strong><span>Trainings</span></div>
             </div>
-            
+
             <div class="exp-social">
-              <a href="#" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
-              <a href="#" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-              <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+              <a href="#" aria-label="Phone"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg></a>
+              <a href="#" aria-label="Email"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg></a>
+              <!-- <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                </svg></a> -->
             </div>
           </div>
-          
+
           <!-- Card 2 -->
           <div class="expert-card">
             <div class="exp-avatar exp-gold">RY</div>
             <h3>Radhika Yalamarthy</h3>
-            <div class="exp-role exp-role-gold"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg> MANAGEMENT HEAD</div>
-            <p>Expert in operations and client relations, ensuring seamless project delivery and maintaining highest standards of client satisfaction.</p>
-            
+            <div class="exp-role exp-role-gold"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path
+                  d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+              </svg> MANAGEMENT HEAD</div>
+            <p>Expert in operations and client relations, ensuring seamless project delivery and maintaining highest
+              standards of client satisfaction.</p>
+
             <div class="exp-tags">
               <span>Operations</span>
               <span>Client Relations</span>
               <span>Project Management</span>
               <span>Documentation</span>
             </div>
-            
+
             <div class="exp-stats">
               <div class="stat-box"><strong>100%</strong><span>Satisfaction</span></div>
               <div class="stat-box"><strong>50+</strong><span>Projects</span></div>
               <div class="stat-box"><strong>6+</strong><span>Years</span></div>
             </div>
-            
+
             <div class="exp-social">
-              <a href="#" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
-              <a href="#" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-              <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+              <a href="#" aria-label="Phone"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg></a>
+              <a href="#" aria-label="Email"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg></a>
+              <!--a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>-->
             </div>
           </div>
         </div>
@@ -1272,8 +1526,44 @@
           <h2>Let's discuss your accreditation requirements</h2>
           <p>Tell us about your laboratory, current compliance status and accreditation requirements. Our team will help
             you identify the right path forward.</p>
-          <p><strong>E-mail</strong><br><a id="mail" href="#"></a></p>
-          <p>Your enquiry goes directly to our consulting team.</p>
+
+          <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
+            <div>
+              <strong style="display: flex; align-items: center; gap: 8px; color: var(--ink);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                </svg> Address
+              </strong>
+              <p style="margin-top: 4px; margin-bottom: 0;">Flat No. 104, Madhavi Towers,<br>Motinagar, Hyderabad -
+                500018,<br>Telangana</p>
+            </div>
+
+            <div>
+              <strong style="display: flex; align-items: center; gap: 8px; color: var(--ink);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg> Phone
+              </strong>
+              <p style="margin-top: 4px; margin-bottom: 0;">
+                <a href="tel:+917730058484" style="text-decoration: none;">+91 7730058484</a><br>
+                <a href="tel:+918328493447" style="text-decoration: none;">+91 8328493447</a>
+              </p>
+            </div>
+
+            <div>
+              <strong style="display: flex; align-items: center; gap: 8px; color: var(--ink);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg> Email
+              </strong>
+              <p style="margin-top: 4px; margin-bottom: 0;">
+                <a href="mailto:ceo.lumin@gmail.com" style="text-decoration: none;">ceo.lumin@gmail.com</a>
+              </p>
+            </div>
+          </div>
         </div>
         <div>
           <form id="enq" novalidate>
@@ -1374,8 +1664,6 @@
 
   <script>
     document.getElementById("yr").textContent = new Date().getFullYear();
-    const mail = document.getElementById("mail");
-    fetch("/api/contact").then(r => r.json()).then(c => { mail.textContent = c.email; mail.href = "mailto:" + c.email; }).catch(() => { });
 
     const menu = document.getElementById("menu"), nav = document.getElementById("nav");
     menu.onclick = () => { const o = nav.classList.toggle("open"); menu.setAttribute("aria-expanded", o); };
