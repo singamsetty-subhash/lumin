@@ -19,3 +19,4 @@ Open http://localhost:8080
     mvn clean package
     java -jar target/lumin-site-1.0.0.jar
 # lumin
+# lumin
