@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api")
@@ -32,6 +34,22 @@ public class EnquiryController {
     @GetMapping("/contact")
     public Map<String, String> contact() {
         return Map.of("email", mail.recipient());
+    }
+
+    @GetMapping("/enquiries")
+    public ResponseEntity<List<Enquiry>> getEnquiries() {
+        return ResponseEntity.ok(repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")));
+    }
+
+    @DeleteMapping("/enquiries/{id}")
+    public ResponseEntity<Map<String, Object>> deleteEnquiry(@PathVariable Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return ResponseEntity.ok(Map.of("success", true, "message", "Enquiry deleted successfully"));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("success", false, "error", "Enquiry not found"));
+        }
     }
 
     @PostMapping("/enquiry")
