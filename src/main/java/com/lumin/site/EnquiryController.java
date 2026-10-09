@@ -42,7 +42,7 @@ public class EnquiryController {
     }
 
     @DeleteMapping("/enquiries/{id}")
-    public ResponseEntity<Map<String, Object>> deleteEnquiry(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> deleteEnquiry(@PathVariable long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
             return ResponseEntity.ok(Map.of("success", true, "message", "Enquiry deleted successfully"));
