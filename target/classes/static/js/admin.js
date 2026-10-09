@@ -1,6 +1,14 @@
 let currentEnquiries = [];
 let pendingDeleteId = null;
 
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000; // 30 minutes
+const ACTIVITY_STORAGE_KEY = 'adminLastActivity';
+const AUTH_STORAGE_KEY = 'adminLoggedIn';
+
+let inactivityCheckInterval = null;
+let lastThrottledTime = 0;
+let userActivityEventsBound = false;
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginView = document.getElementById('login-view');
     const dashboardView = document.getElementById('dashboard-view');
@@ -48,9 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Check if already logged in
-    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-        showDashboard();
+    // Check if already logged in and validate session expiry
+    if (sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true') {
+        const lastActive = parseInt(sessionStorage.getItem(ACTIVITY_STORAGE_KEY) || '0', 10);
+        const now = Date.now();
+        if (lastActive && (now - lastActive > INACTIVITY_LIMIT_MS)) {
+            handleSessionTimeout();
+        } else {
+            sessionStorage.setItem(ACTIVITY_STORAGE_KEY, now.toString());
+            showDashboard();
+        }
     }
 
     loginForm.addEventListener('submit', (e) => {
@@ -59,21 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const pass = document.getElementById('password').value.trim();
 
         if (user === 'admin' && pass === 'admin123') {
-            sessionStorage.setItem('adminLoggedIn', 'true');
+            sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
+            sessionStorage.setItem(ACTIVITY_STORAGE_KEY, Date.now().toString());
+            errorMsg.style.display = 'none';
             showDashboard();
         } else {
+            errorMsg.textContent = 'Invalid credentials. Please try again.';
             errorMsg.style.display = 'block';
         }
     });
 
     logoutBtn.addEventListener('click', () => {
-        sessionStorage.removeItem('adminLoggedIn');
-        loginView.style.display = 'grid';
-        dashboardView.style.display = 'none';
-        logoutBtn.style.display = 'none';
-        if (usernameInput) usernameInput.value = '';
-        if (passwordInput) passwordInput.value = '';
-        errorMsg.style.display = 'none';
+        performLogout();
     });
 
     if (searchInput) {
@@ -124,7 +136,84 @@ document.addEventListener('DOMContentLoaded', () => {
         loginView.style.display = 'none';
         dashboardView.style.display = 'block';
         logoutBtn.style.display = 'block';
+        startInactivityTracker();
         fetchEnquiries();
+    }
+
+    function performLogout() {
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+        sessionStorage.removeItem(ACTIVITY_STORAGE_KEY);
+        stopInactivityTracker();
+        closeDeleteModal();
+        loginView.style.display = 'grid';
+        dashboardView.style.display = 'none';
+        logoutBtn.style.display = 'none';
+        if (usernameInput) usernameInput.value = '';
+        if (passwordInput) passwordInput.value = '';
+        errorMsg.style.display = 'none';
+    }
+
+    function handleSessionTimeout() {
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+        sessionStorage.removeItem(ACTIVITY_STORAGE_KEY);
+        stopInactivityTracker();
+        closeDeleteModal();
+        loginView.style.display = 'grid';
+        dashboardView.style.display = 'none';
+        logoutBtn.style.display = 'none';
+        if (usernameInput) usernameInput.value = '';
+        if (passwordInput) passwordInput.value = '';
+        if (errorMsg) {
+            errorMsg.textContent = 'Session expired due to 30 minutes of inactivity. Please sign in again.';
+            errorMsg.style.display = 'block';
+        }
+        showToast('Session expired due to 30 minutes of inactivity.', true);
+    }
+
+    function onUserActivity() {
+        if (sessionStorage.getItem(AUTH_STORAGE_KEY) !== 'true') return;
+        const now = Date.now();
+        // Throttle updates to sessionStorage once every 5 seconds
+        if (now - lastThrottledTime > 5000) {
+            lastThrottledTime = now;
+            sessionStorage.setItem(ACTIVITY_STORAGE_KEY, now.toString());
+        }
+    }
+
+    function checkInactivity() {
+        if (sessionStorage.getItem(AUTH_STORAGE_KEY) !== 'true') {
+            stopInactivityTracker();
+            return;
+        }
+        const lastActive = parseInt(sessionStorage.getItem(ACTIVITY_STORAGE_KEY) || '0', 10);
+        const now = Date.now();
+        if (lastActive && (now - lastActive >= INACTIVITY_LIMIT_MS)) {
+            handleSessionTimeout();
+        }
+    }
+
+    function startInactivityTracker() {
+        if (!userActivityEventsBound) {
+            const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'click'];
+            events.forEach(evt => window.addEventListener(evt, onUserActivity, { passive: true }));
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    checkInactivity();
+                }
+            });
+            userActivityEventsBound = true;
+        }
+
+        if (inactivityCheckInterval) clearInterval(inactivityCheckInterval);
+        // Check inactivity every 10 seconds
+        inactivityCheckInterval = setInterval(checkInactivity, 10000);
+    }
+
+    function stopInactivityTracker() {
+        if (inactivityCheckInterval) {
+            clearInterval(inactivityCheckInterval);
+            inactivityCheckInterval = null;
+        }
     }
 });
 
