@@ -15,285 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-
-  <style>
-    /* Gallery-specific styling */
-    .gallery-hero {
-      position: relative;
-      background: #040d17;
-      color: #fff;
-      padding: 72px 0 60px;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .gallery-hero h1 {
-      color: #ffffff;
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-      font-weight: 800;
-      margin-bottom: 16px;
-      line-height: 1.15;
-    }
-
-    .gallery-hero p {
-      color: #cbd5e1;
-      font-size: 1.1rem;
-      max-width: 680px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .filter-bar {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 40px auto 48px;
-      padding: 0 16px;
-    }
-
-    .filter-btn {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      color: #475569;
-      padding: 10px 22px;
-      border-radius: 9999px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      font-family: inherit;
-    }
-
-    .filter-btn:hover {
-      background: #f1f5f9;
-      color: #0f2a3a;
-      border-color: #cbd5e1;
-    }
-
-    .filter-btn.active {
-      background: var(--ink);
-      color: #ffffff;
-      border-color: var(--ink);
-      box-shadow: 0 4px 14px rgba(15, 42, 58, 0.2);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 28px;
-      padding-bottom: 80px;
-    }
-
-    .gallery-card {
-      background: #ffffff;
-      border: 1px solid #edf2f7;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 30px rgba(15, 42, 58, 0.12);
-    }
-
-    .gallery-img-wrap {
-      position: relative;
-      width: 100%;
-      height: 240px;
-      background: #f8fafc;
-      overflow: hidden;
-    }
-
-    .gallery-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      display: block;
-    }
-
-    .gallery-card:hover .gallery-img-wrap img {
-      transform: scale(1.06);
-    }
-
-    .gallery-badge {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(15, 42, 58, 0.85);
-      color: #ffffff;
-      backdrop-filter: blur(6px);
-      padding: 5px 12px;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      z-index: 2;
-    }
-
-    .gallery-zoom-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(15, 42, 58, 0.35);
-      opacity: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-
-    .gallery-card:hover .gallery-zoom-overlay {
-      opacity: 1;
-    }
-
-    .gallery-zoom-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #ffffff;
-      color: #0f2a3a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .gallery-body {
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .gallery-body h3 {
-      font-size: 1.12rem;
-      color: #0f2a3a;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .gallery-body p {
-      font-size: 0.9rem;
-      color: #64748b;
-      line-height: 1.55;
-      margin: 0;
-    }
-
-    /* Lightbox Modal */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(4, 13, 23, 0.92);
-      backdrop-filter: blur(8px);
-      z-index: 99999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .lightbox.is-open {
-      display: flex;
-      opacity: 1;
-    }
-
-    .lightbox-content {
-      max-width: 860px;
-      width: 100%;
-      background: #ffffff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      position: relative;
-      animation: modalFadeIn 0.3s ease;
-    }
-
-    @keyframes modalFadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .lightbox-img-wrap {
-      width: 100%;
-      max-height: 520px;
-      background: #0f172a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .lightbox-img-wrap img {
-      max-width: 100%;
-      max-height: 520px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    .lightbox-meta {
-      padding: 24px 28px;
-      background: #ffffff;
-    }
-
-    .lightbox-meta h3 {
-      font-size: 1.35rem;
-      color: #0f2a3a;
-      margin-bottom: 8px;
-    }
-
-    .lightbox-meta p {
-      color: #64748b;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(15, 42, 58, 0.8);
-      color: #ffffff;
-      border: none;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s;
-      z-index: 10;
-    }
-
-    .lightbox-close:hover {
-      background: #dc2626;
-    }
-
-    nav ul li a.active-link {
-      color: var(--accent) !important;
-      font-weight: 700;
-    }
-  </style>
+  <link rel="stylesheet" href="css/gallery.css">
 </head>
 
 <body>
@@ -337,29 +59,17 @@
   </section>
 
   <!-- Gallery Content -->
-  <main class="wrap" style="padding-top: 40px;">
-    <!-- Filter Buttons -->
-    <div class="filter-bar">
-      <button type="button" class="filter-btn active" data-filter="all">All Photos</button>
-      <button type="button" class="filter-btn" data-filter="labs">Laboratory Facilities</button>
-      <button type="button" class="filter-btn" data-filter="sectors">Testing &amp; Training</button>
-      <button type="button" class="filter-btn" data-filter="clients">Client Engagements</button>
-    </div>
-
+  <main class="wrap">
     <!-- Gallery Grid -->
     <div class="gallery-grid" id="gallery-grid">
 
-      <!-- Item 1: Telangana Veterinary Biological & Research Institute -->
-      <div class="gallery-card" data-category="labs clients"
-        data-title="Telangana Veterinary Biological &amp; Research Institute"
-        data-desc="On-site laboratory quality standards assessment and consultation with administrative and scientific leadership at VBRI, Hyderabad."
-        data-img="images/Gallery/1.jpeg">
+      <!-- Item 1 -->
+      <div class="gallery-card" data-img="images/Gallery/1.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Research Institute</span>
-          <img src="images/Gallery/1.jpeg" alt="Telangana Veterinary Biological &amp; Research Institute" loading="lazy">
+          <img src="images/Gallery/1.jpeg" alt="Lumin Consultancy Gallery Photo 1" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -367,24 +77,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Telangana Veterinary Biological &amp; Research Institute</h3>
-          <p>On-site laboratory quality standards assessment and consultation with administrative and scientific leadership.</p>
         </div>
       </div>
 
-      <!-- Item 2: Vimta Labs Facility -->
-      <div class="gallery-card" data-category="labs clients"
-        data-title="Vimta Labs Testing Campus"
-        data-desc="Quality advisory engagement and facility review at Vimta Labs, one of India's premier contract testing and research organizations."
-        data-img="images/Gallery/2.jpeg">
+      <!-- Item 2 -->
+      <div class="gallery-card" data-img="images/Gallery/2.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Partner Laboratory</span>
-          <img src="images/Gallery/2.jpeg" alt="Vimta Labs Testing Campus" loading="lazy">
+          <img src="images/Gallery/2.jpeg" alt="Lumin Consultancy Gallery Photo 2" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -392,24 +94,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Vimta Labs Testing Campus</h3>
-          <p>Accreditation advisory and quality management framework consultation at Vimta Labs testing facility.</p>
         </div>
       </div>
 
-      <!-- Item 3: Quality Assessment & Audit Meeting -->
-      <div class="gallery-card" data-category="clients sectors"
-        data-title="Laboratory Quality Management System (QMS) Review"
-        data-desc="Technical consultation meeting with department heads and scientific personnel reviewing audit protocols and NABL documentation readiness."
-        data-img="images/Gallery/3.jpeg">
+      <!-- Item 3 -->
+      <div class="gallery-card" data-img="images/Gallery/3.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">QMS &amp; Audit Review</span>
-          <img src="images/Gallery/3.jpeg" alt="Laboratory Quality Management System Review" loading="lazy">
+          <img src="images/Gallery/3.jpeg" alt="Lumin Consultancy Gallery Photo 3" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -417,24 +111,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Laboratory QMS Technical Assessment</h3>
-          <p>Reviewing quality management systems, test method verification, and regulatory compliance with departmental officers.</p>
         </div>
       </div>
 
-      <!-- Item 4: ISO/IEC 17025 Training Workshop -->
-      <div class="gallery-card" data-category="sectors clients"
-        data-title="ISO/IEC 17025:2017 Technical Competence Workshop"
-        data-desc="Interactive competence-building and audit readiness workshop conducted for laboratory scientists and technical officers."
-        data-img="images/Gallery/4.jpeg">
+      <!-- Item 4 -->
+      <div class="gallery-card" data-img="images/Gallery/4.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Training &amp; Workshop</span>
-          <img src="images/Gallery/4.jpeg" alt="ISO/IEC 17025:2017 Technical Competence Workshop" loading="lazy">
+          <img src="images/Gallery/4.jpeg" alt="Lumin Consultancy Gallery Photo 4" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -442,24 +128,17 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>ISO/IEC 17025 Quality Training Workshop</h3>
-          <p>Comprehensive technical training on ISO/IEC 17025:2017 quality standards and measurement uncertainty for analytical staff.</p>
         </div>
       </div>
 
-      <!-- Item 5: Compliance Audits & Team Competency Program -->
-      <div class="gallery-card" data-category="sectors clients"
-        data-title="Accreditation Readiness &amp; Quality Audit Session"
-        data-desc="In-depth session on method validation protocols, PT/ILC participation, calibration hierarchies, and equipment maintenance registers."
-        data-img="images/Gallery/5.jpeg">
+
+      <!-- Item 5 -->
+      <div class="gallery-card" data-img="images/Gallery/5.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Competence Building</span>
-          <img src="images/Gallery/5.jpeg" alt="Accreditation Readiness &amp; Quality Audit Session" loading="lazy">
+          <img src="images/Gallery/5.jpeg" alt="Lumin Consultancy Gallery Photo 5" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -467,24 +146,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Technical Compliance &amp; Validation Review</h3>
-          <p>Guidance on standard operating procedures (SOP), internal auditing practices, and accreditation readiness workflows.</p>
         </div>
       </div>
 
-      <!-- Item 6: Vimta Labs Strategic Consultation -->
-      <div class="gallery-card" data-category="clients labs"
-        data-title="Vimta Labs Strategic Quality Consultation"
-        data-desc="Executive quality advisory and strategic consultation session with senior technical managers and analytical leads at Vimta Labs."
-        data-img="images/Gallery/6.jpeg">
+      <!-- Item 6 -->
+      <div class="gallery-card" data-img="images/Gallery/6.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Executive Advisory</span>
-          <img src="images/Gallery/6.jpeg" alt="Vimta Labs Strategic Quality Consultation" loading="lazy">
+          <img src="images/Gallery/6.jpeg" alt="Lumin Consultancy Gallery Photo 6" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -492,24 +163,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Vimta Labs Leadership Quality Advisory</h3>
-          <p>Collaborative session on analytical excellence, multi-sector testing rigor, and accredited quality governance.</p>
         </div>
       </div>
 
-      <!-- Item 7: Prajwala Civil Lab and Engineering LLP -->
-      <div class="gallery-card" data-category="sectors clients"
-        data-title="Prajwala Civil Lab &amp; Engineering LLP"
-        data-desc="Handover and implementation of ISO/IEC 17025:2017 Quality Manual to the leadership and technical team of Prajwala Civil Lab and Engineering LLP."
-        data-img="images/Gallery/7.jpeg">
+      <!-- Item 7 -->
+      <div class="gallery-card" data-img="images/Gallery/7.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Engineering &amp; Civil Lab</span>
-          <img src="images/Gallery/7.jpeg" alt="Prajwala Civil Lab and Engineering LLP Quality Manual Handover" loading="lazy">
+          <img src="images/Gallery/7.jpeg" alt="Lumin Consultancy Gallery Photo 7" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -517,24 +180,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Prajwala Civil Lab &amp; Engineering LLP</h3>
-          <p>Handover of ISO/IEC 17025:2017 Quality Manual and complete quality system documentation for civil materials testing.</p>
         </div>
       </div>
 
-      <!-- Item 8: Food Corporation of India (FCI) -->
-      <div class="gallery-card" data-category="labs clients"
-        data-title="Food Corporation of India (FCI) Zonal QC Lab"
-        data-desc="Testing quality protocol review and accreditation advisory session at FCI Zonal Quality Control Laboratory, Cherlapally."
-        data-img="images/Gallery/8.jpeg">
+      <!-- Item 8 -->
+      <div class="gallery-card" data-img="images/Gallery/8.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Government Client</span>
-          <img src="images/Gallery/8.jpeg" alt="Food Corporation of India Zonal QC Laboratory" loading="lazy">
+          <img src="images/Gallery/8.jpeg" alt="Lumin Consultancy Gallery Photo 8" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -542,24 +197,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Food Corporation of India (FCI) QC Lab</h3>
-          <p>Standard operating procedures (SOPs) and testing compliance alignment at FCI Zonal Quality Control Laboratory, Cherlapally.</p>
         </div>
       </div>
 
-      <!-- Item 9: Vimta Labs Partnership Recognition -->
-      <div class="gallery-card" data-category="clients labs"
-        data-title="Vimta Labs Recognition &amp; Memento Presentation"
-        data-desc="Exchange of appreciation and acknowledgment commemorating successful implementation of quality compliance milestones with Vimta Labs."
-        data-img="images/Gallery/9.jpeg">
+      <!-- Item 9 -->
+      <div class="gallery-card" data-img="images/Gallery/9.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Partner Recognition</span>
-          <img src="images/Gallery/9.jpeg" alt="Vimta Labs Recognition &amp; Memento Presentation" loading="lazy">
+          <img src="images/Gallery/9.jpeg" alt="Lumin Consultancy Gallery Photo 9" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -567,24 +214,16 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Vimta Labs Recognition &amp; Memento</h3>
-          <p>Token of appreciation presented between Lumin Consultancy and Vimta Labs following successful quality consultancy engagements.</p>
         </div>
       </div>
 
-      <!-- Item 10: Oil Country Tubular Ltd -->
-      <div class="gallery-card" data-category="sectors clients"
-        data-title="Oil Country Tubular Ltd. Quality Assurance"
-        data-desc="Industrial testing compliance, tubular products quality standards, and ISO accreditation support session with engineering management."
-        data-img="images/Gallery/10.jpeg">
+      <!-- Item 10 -->
+      <div class="gallery-card" data-img="images/Gallery/10.jpeg">
         <div class="gallery-img-wrap">
-          <span class="gallery-badge">Industrial Testing</span>
-          <img src="images/Gallery/10.jpeg" alt="Oil Country Tubular Ltd Quality Assurance" loading="lazy">
+          <img src="images/Gallery/10.jpeg" alt="Lumin Consultancy Gallery Photo 10" loading="lazy">
           <div class="gallery-zoom-overlay">
             <div class="gallery-zoom-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 <line x1="11" y1="8" x2="11" y2="14"></line>
@@ -592,10 +231,6 @@
               </svg>
             </div>
           </div>
-        </div>
-        <div class="gallery-body">
-          <h3>Oil Country Tubular Ltd.</h3>
-          <p>Industrial testing compliance, tubular products quality standards, and ISO accreditation support session.</p>
         </div>
       </div>
 
@@ -604,19 +239,15 @@
 
   <!-- Fullscreen Lightbox Modal -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo Preview">
+    <button type="button" class="lightbox-close" id="lightbox-close" title="Close Preview">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
     <div class="lightbox-content">
-      <button type="button" class="lightbox-close" id="lightbox-close" title="Close Preview">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
       <div class="lightbox-img-wrap">
         <img src="" id="lightbox-img" alt="Gallery Preview">
-      </div>
-      <div class="lightbox-meta">
-        <h3 id="lightbox-title">Laboratory Title</h3>
-        <p id="lightbox-desc">Detailed description of the laboratory and accreditation work.</p>
       </div>
     </div>
   </div>
@@ -663,106 +294,7 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    // Initialize Particles on Hero
-    if (typeof particlesJS !== 'undefined') {
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
-          "color": { "value": ["#3b82f6", "#60a5fa"] },
-          "shape": { "type": "circle" },
-          "opacity": { "value": 0.4, "random": false },
-          "size": { "value": 3, "random": true },
-          "line_linked": { "enable": true, "distance": 150, "color": "#3b82f6", "opacity": 0.25, "width": 1 },
-          "move": { "enable": true, "speed": 1.2, "direction": "none", "random": true, "out_mode": "out" }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": { "onhover": { "enable": true, "mode": "grab" }, "resize": true }
-        },
-        "retina_detect": true
-      });
-    }
-
-    // Mobile Menu Toggle
-    const menuBtn = document.getElementById('menu');
-    const navMenu = document.getElementById('nav');
-    if (menuBtn && navMenu) {
-      menuBtn.addEventListener('click', () => {
-        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-        menuBtn.setAttribute('aria-expanded', !expanded);
-        navMenu.classList.toggle('is-open');
-      });
-    }
-
-    // Filter Buttons Logic
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.gallery-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.getAttribute('data-filter');
-
-        cards.forEach(card => {
-          const category = card.getAttribute('data-category') || '';
-          if (filter === 'all' || category.split(' ').includes(filter)) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
-    // Lightbox Functionality
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxTitle = document.getElementById('lightbox-title');
-    const lightboxDesc = document.getElementById('lightbox-desc');
-    const lightboxClose = document.getElementById('lightbox-close');
-
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        const img = card.getAttribute('data-img');
-        const title = card.getAttribute('data-title');
-        const desc = card.getAttribute('data-desc');
-
-        lightboxImg.src = img;
-        lightboxTitle.textContent = title;
-        lightboxDesc.textContent = desc;
-
-        lightbox.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('is-open');
-      document.body.style.overflow = '';
-      lightboxImg.src = '';
-    }
-
-    if (lightboxClose) {
-      lightboxClose.addEventListener('click', closeLightbox);
-    }
-
-    if (lightbox) {
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-          closeLightbox();
-        }
-      });
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
-        closeLightbox();
-      }
-    });
-  </script>
+  <script src="js/gallery.js" defer></script>
 </body>
 
 </html>
