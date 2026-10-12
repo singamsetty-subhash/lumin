@@ -308,10 +308,6 @@
       transform: translateY(-5.5px) rotate(-45deg);
     }
 
-    .nav-mobile-cta {
-      display: none;
-    }
-
     .hero {
       background: var(--ink);
       color: #d3dfe7;
@@ -1065,21 +1061,6 @@
         background: #fdf6e7;
         color: var(--accentd);
         font-weight: 700;
-      }
-
-      .nav-mobile-cta {
-        display: block;
-        margin-top: 14px;
-        padding-top: 14px;
-        border-top: 1px solid var(--line);
-      }
-
-      .nav-mobile-cta .btn {
-        display: block;
-        text-align: center;
-        width: 100%;
-        padding: 12px 18px;
-        font-size: .98rem;
       }
 
       #menu {
