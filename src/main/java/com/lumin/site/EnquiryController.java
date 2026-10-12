@@ -63,8 +63,9 @@ public class EnquiryController {
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
                     .body(Map.of("success", false, "error", "Too many enquiries. Please try again later."));
         }
+        Enquiry enquiry;
         try {
-            Enquiry enquiry = new Enquiry();
+            enquiry = new Enquiry();
             enquiry.setName(req.name());
             enquiry.setOrganization(req.organization());
             enquiry.setDesignation(req.designation());
@@ -75,16 +76,23 @@ public class EnquiryController {
             enquiry.setStatus(req.status());
             enquiry.setMessage(req.message());
             enquiry.setPreferred(req.preferred());
-            repository.save(enquiry);
-
-            mail.sendEnquiry(req);
-            return ResponseEntity.ok(Map.of("success", true));
+            enquiry = repository.save(enquiry);
+            log.info("Enquiry successfully recorded in database with id: {}", enquiry.getId());
         } catch (Exception e) {
-            log.error("Enquiry email failed", e);
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+            log.error("Failed to save enquiry to database", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("success", false, "error",
-                            "We could not send your enquiry right now. our Team will Contact you "));
+                            "We could not save your enquiry right now. Please try again shortly."));
         }
+
+        // Send email notification in a safe try-catch so email provider/SMTP issues never fail a saved enquiry
+        try {
+            mail.sendEnquiry(req);
+        } catch (Exception e) {
+            log.warn("Enquiry #{} saved to database, but email delivery failed: {}", enquiry.getId(), e.getMessage());
+        }
+
+        return ResponseEntity.ok(Map.of("success", true));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

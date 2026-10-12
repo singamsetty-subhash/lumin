@@ -1,5 +1,7 @@
 package com.lumin.site;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailService {
 
+    private static final Logger log = LoggerFactory.getLogger(MailService.class);
     private final JavaMailSender sender;
     private final String to;
     private final String from;
@@ -23,6 +26,10 @@ public class MailService {
     public String recipient() { return to; }
 
     public void sendEnquiry(EnquiryRequest r) {
+        if (from == null || from.isBlank()) {
+            log.warn("SMTP username not configured. Skipping email notification for enquiry from: {}", r.email());
+            return;
+        }
         SimpleMailMessage m = new SimpleMailMessage();
         m.setFrom(from);
         m.setTo(to);
