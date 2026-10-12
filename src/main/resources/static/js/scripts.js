@@ -87,7 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.success) throw new Error(j.error || "");
         if (window.gtag) gtag("event", "enquiry_submitted");
-        window.location.href = "/thank-you.html";
+        form.reset();
+        if (send) { send.disabled = false; send.textContent = "Request a Consultation"; }
+        show("Thank you for your enquiry! We have received your request and our team will contact you shortly.", "ok");
+        msg.scrollIntoView({ behavior: "smooth", block: "nearest" });
       } catch (err) {
         if (send) { send.disabled = false; send.textContent = "Request a Consultation"; }
         show(err.message || "We could not send your enquiry. Please try again shortly.", "err");
