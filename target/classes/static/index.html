@@ -32,10 +32,19 @@
           <li><a href="#faq">Resources</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li class="nav-mobile-cta"><a class="btn btn-p" href="#contact" data-cta="mobile-nav">Book a Consultation</a>
+          </li>
         </ul>
       </nav>
       <a class="btn btn-p" href="#contact" data-cta="header">Book a Consultation</a>
-      <button id="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+      <button id="menu" aria-expanded="false" aria-controls="nav" aria-label="Toggle navigation">
+        <span class="menu-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="menu-text">Menu</span>
+      </button>
     </div>
   </header>
 
@@ -68,11 +77,13 @@
             style="padding: 14px 28px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; font-weight: 700;"
             href="#services">Explore Services</a>
         </div>
-        <div style="margin-top: 30px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="m6 9 6 6 6-6"></path>
-          </svg>
+        <div style="margin-top: 36px;">
+          <a href="#about" class="hero-about-btn" aria-label="Learn more about Lumin Consultancy" title="About Us">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </section>
@@ -730,11 +741,11 @@
           </ul>
         </div>
         <div>
-          <h4>Services</h4>
+          <h4><a href="#services">Services</a></h4>
           <ul>
-            <li>NABL Accreditation As Per ISO/IEC 17025:2017</li>
-            <li>Validation &amp; Uncertainty</li>
-            <li>Audits &amp; Training</li>
+            <li><a href="#services">NABL Accreditation As Per ISO/IEC 17025:2017</a></li>
+            <li><a href="#services">Validation &amp; Uncertainty</a></li>
+            <li><a href="#services">Audits &amp; Training</a></li>
           </ul>
         </div>
       </div>

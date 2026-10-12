@@ -23,14 +23,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Menu Toggle
+  // Mobile Menu Toggle & Controls
   const menuBtn = document.getElementById('menu');
   const navMenu = document.getElementById('nav');
   if (menuBtn && navMenu) {
-    menuBtn.addEventListener('click', () => {
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', !expanded);
-      navMenu.classList.toggle('is-open');
+    const menuText = menuBtn.querySelector('.menu-text');
+
+    function openMenu() {
+      navMenu.classList.add('open');
+      navMenu.classList.add('is-open');
+      menuBtn.classList.add('is-active');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      if (menuText) menuText.textContent = 'Close';
+    }
+
+    function closeMenu() {
+      navMenu.classList.remove('open');
+      navMenu.classList.remove('is-open');
+      menuBtn.classList.remove('is-active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      if (menuText) menuText.textContent = 'Menu';
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.contains('open') || navMenu.classList.contains('is-open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Close when clicking any link inside nav
+    navMenu.addEventListener('click', (e) => {
+      if (e.target.closest('a')) {
+        closeMenu();
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      const isOpen = navMenu.classList.contains('open') || navMenu.classList.contains('is-open');
+      if (isOpen && !navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
+    // Reset when resizing to desktop view
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1024) {
+        closeMenu();
+      }
     });
   }
 
