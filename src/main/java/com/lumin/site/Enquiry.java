@@ -1,7 +1,7 @@
 package com.lumin.site;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "enquiries")
@@ -41,11 +41,11 @@ public class Enquiry {
     @Column(length = 40)
     private String preferred;
 
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
+        createdAt = Instant.now();
     }
 
     // Default constructor for JPA
@@ -85,6 +85,6 @@ public class Enquiry {
     public String getPreferred() { return preferred; }
     public void setPreferred(String preferred) { this.preferred = preferred; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

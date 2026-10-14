@@ -566,8 +566,23 @@ function showToast(message, isError = false) {
 function formatDate(dateString) {
     if (!dateString) return '-';
     try {
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return dateString;
+        let str = String(dateString).trim();
+        // If ISO string without timezone indicator, append 'Z' so it's treated as UTC
+        if (str.includes('T') && !str.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(str)) {
+            str += 'Z';
+        }
+        const date = new Date(str);
+        if (isNaN(date.getTime())) {
+            const fallback = new Date(dateString);
+            if (isNaN(fallback.getTime())) return dateString;
+            return fallback.toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
         return date.toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'short',
