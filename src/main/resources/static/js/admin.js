@@ -567,17 +567,20 @@ function formatDate(dateString) {
     if (!dateString) return '-';
     try {
         let str = String(dateString).trim();
+        const istOptions = {
+            timeZone: 'Asia/Kolkata',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        };
+
         // If string already has a timezone indicator ('Z' or offset like +05:30), parse directly
         if (str.endsWith('Z') || /[+-]\d{2}:?\d{2}$/.test(str)) {
             const date = new Date(str);
             if (!isNaN(date.getTime())) {
-                return date.toLocaleDateString(undefined, {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
+                return date.toLocaleDateString('en-US', istOptions);
             }
         }
 
@@ -593,13 +596,7 @@ function formatDate(dateString) {
 
         if (isNaN(chosenDate.getTime())) return dateString;
 
-        return chosenDate.toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+        return chosenDate.toLocaleDateString('en-US', istOptions);
     } catch (e) {
         return dateString;
     }
