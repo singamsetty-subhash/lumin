@@ -567,23 +567,33 @@ function formatDate(dateString) {
     if (!dateString) return '-';
     try {
         let str = String(dateString).trim();
-        // If ISO string without timezone indicator, append 'Z' so it's treated as UTC
-        if (str.includes('T') && !str.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(str)) {
-            str += 'Z';
+        // If string already has a timezone indicator ('Z' or offset like +05:30), parse directly
+        if (str.endsWith('Z') || /[+-]\d{2}:?\d{2}$/.test(str)) {
+            const date = new Date(str);
+            if (!isNaN(date.getTime())) {
+                return date.toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
         }
-        const date = new Date(str);
-        if (isNaN(date.getTime())) {
-            const fallback = new Date(dateString);
-            if (isNaN(fallback.getTime())) return dateString;
-            return fallback.toLocaleDateString(undefined, {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-        return date.toLocaleDateString(undefined, {
+
+        // For legacy timestamps without timezone:
+        // Try interpreting as UTC, and also as local time
+        const utcDate = new Date(str.includes('T') ? str + 'Z' : str.replace(' ', 'T') + 'Z');
+        const localDate = new Date(str.includes('T') ? str : str.replace(' ', 'T'));
+
+        // If treating as UTC pushes the timestamp into the future, it was already stored in local time (e.g. localhost submission)
+        const chosenDate = (!isNaN(utcDate.getTime()) && utcDate.getTime() <= Date.now() + 120000)
+            ? utcDate
+            : localDate;
+
+        if (isNaN(chosenDate.getTime())) return dateString;
+
+        return chosenDate.toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
