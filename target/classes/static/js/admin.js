@@ -1,13 +1,40 @@
+/**
+ * @fileoverview Administrative Dashboard controller script for Lumin Consultancy.
+ * <p>
+ * Manages administrative authentication, session persistence, automatic 30-minute
+ * inactivity session termination, real-time enquiry fetching from /api/enquiries,
+ * client-side multi-attribute search filtering, expandable row details, 1-click
+ * WhatsApp/Email/Phone actions, deletion confirmation modals, and toast notifications.
+ * </p>
+ *
+ * @author Lumin Technical Team
+ * @version 8.0.0
+ */
+
+/** @type {Array<Object>} In-memory cache of currently loaded enquiry records from the database. */
 let currentEnquiries = [];
+
+/** @type {number|string|null} ID of an enquiry record awaiting deletion confirmation in the modal dialog. */
 let pendingDeleteId = null;
 
-const INACTIVITY_LIMIT_MS = 30 * 60 * 1000; // 30 minutes
+/** @const {number} Inactivity threshold before automatic session logout (30 minutes in milliseconds). */
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
+
+/** @const {string} Key used to store the last active epoch timestamp in sessionStorage. */
 const ACTIVITY_STORAGE_KEY = 'adminLastActivity';
+
+/** @const {string} Key used to store administrative authentication status in sessionStorage. */
 const AUTH_STORAGE_KEY = 'adminLoggedIn';
 
+/** @type {number|null} Polling interval handle for checking idle session expiration. */
 let inactivityCheckInterval = null;
+
+/** @type {number} Throttled epoch timestamp to minimize frequent sessionStorage writes. */
 let lastThrottledTime = 0;
+
+/** @type {boolean} Flag tracking whether global user interaction listeners are registered. */
 let userActivityEventsBound = false;
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginView = document.getElementById('login-view');
@@ -132,6 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /**
+     * Transitions the UI from the login view to the authenticated dashboard view,
+     * starts user idle tracking, and triggers initial enquiry loading.
+     */
     function showDashboard() {
         loginView.style.display = 'none';
         dashboardView.style.display = 'block';
@@ -140,6 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchEnquiries();
     }
 
+    /**
+     * Clears authentication tokens and timestamps, stops inactivity polling,
+     * and resets the interface back to the login state.
+     */
     function performLogout() {
         sessionStorage.removeItem(AUTH_STORAGE_KEY);
         sessionStorage.removeItem(ACTIVITY_STORAGE_KEY);
@@ -153,6 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMsg.style.display = 'none';
     }
 
+    /**
+     * Handles automatic session termination when 30 minutes of idle time elapsed,
+     * informing the user via an inline alert and toast notification.
+     */
     function handleSessionTimeout() {
         sessionStorage.removeItem(AUTH_STORAGE_KEY);
         sessionStorage.removeItem(ACTIVITY_STORAGE_KEY);
@@ -170,6 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Session expired due to 30 minutes of inactivity.', true);
     }
 
+    /**
+     * Throttled event listener recording user activity and updating the session timestamp.
+     */
     function onUserActivity() {
         if (sessionStorage.getItem(AUTH_STORAGE_KEY) !== 'true') return;
         const now = Date.now();
@@ -180,6 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Periodic check evaluating whether idle time has exceeded {@link INACTIVITY_LIMIT_MS}.
+     */
     function checkInactivity() {
         if (sessionStorage.getItem(AUTH_STORAGE_KEY) !== 'true') {
             stopInactivityTracker();
@@ -192,6 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Attaches global user interaction listeners and starts the 10-second polling interval.
+     */
     function startInactivityTracker() {
         if (!userActivityEventsBound) {
             const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'click'];
@@ -209,6 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
         inactivityCheckInterval = setInterval(checkInactivity, 10000);
     }
 
+    /**
+     * Halts the background inactivity polling interval.
+     */
     function stopInactivityTracker() {
         if (inactivityCheckInterval) {
             clearInterval(inactivityCheckInterval);
@@ -217,6 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/**
+ * Initializes the interactive background particle canvas on the login panel.
+ */
 function initParticles() {
     if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
         particlesJS("particles-js", {
@@ -239,6 +293,13 @@ function initParticles() {
     }
 }
 
+/**
+ * Asynchronously fetches all stored consultation enquiries from the backend REST endpoint
+ * {@code GET /api/enquiries} and triggers the table rendering pipeline.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
 async function fetchEnquiries() {
     const tbody = document.getElementById('enquiries-body');
     tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #64748b;">Loading enquiries from database...</td></tr>';
@@ -265,6 +326,12 @@ async function fetchEnquiries() {
     }
 }
 
+/**
+ * Dynamically builds and inserts the table rows for the dashboard.
+ * Renders both summary master rows and collapsible sub-rows for detailed viewing.
+ *
+ * @param {Array<Object>} data - Array of enquiry records to render in the table.
+ */
 function renderTable(data) {
     const tbody = document.getElementById('enquiries-body');
     tbody.innerHTML = '';
@@ -458,6 +525,11 @@ function renderTable(data) {
     });
 }
 
+/**
+ * Toggles the expanded visibility state of an enquiry's detail row.
+ *
+ * @param {string|number} itemId - The ID identifier of the target row.
+ */
 function toggleRowExpansion(itemId) {
     const mainRow = document.getElementById(`row-${itemId}`);
     const detailsRow = document.getElementById(`details-${itemId}`);
@@ -474,6 +546,11 @@ function toggleRowExpansion(itemId) {
     }
 }
 
+/**
+ * Global trigger to open the modal confirmation dialog for deleting an enquiry record.
+ *
+ * @param {Object|number|string} itemOrId - The enquiry item object or its numeric identifier.
+ */
 window.deleteEnquiryRecord = function(itemOrId) {
     let item = itemOrId;
     if (typeof itemOrId === 'number' || typeof itemOrId === 'string') {
@@ -498,6 +575,13 @@ window.deleteEnquiryRecord = function(itemOrId) {
     }
 };
 
+/**
+ * Sends a DELETE request to {@code /api/enquiries/{id}} and removes the row from the table DOM upon success.
+ *
+ * @async
+ * @param {number|string} id - The ID of the enquiry record to delete.
+ * @returns {Promise<void>}
+ */
 async function executeDelete(id) {
     if (!id) return;
 
@@ -537,6 +621,9 @@ async function executeDelete(id) {
     }
 }
 
+/**
+ * Dismisses the deletion confirmation modal and clears pending state.
+ */
 function closeDeleteModal() {
     const modal = document.getElementById('delete-modal');
     if (modal) {
@@ -545,6 +632,12 @@ function closeDeleteModal() {
     pendingDeleteId = null;
 }
 
+/**
+ * Displays a non-intrusive floating toast notification to the administrator.
+ *
+ * @param {string} message - Message text to present in the toast.
+ * @param {boolean} [isError=false] - If true, styles the toast with an error background (red).
+ */
 function showToast(message, isError = false) {
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toast-message');
@@ -563,6 +656,12 @@ function showToast(message, isError = false) {
     }, 4000);
 }
 
+/**
+ * Formats an ISO-8601 or legacy timestamp string into Indian Standard Time (IST, Asia/Kolkata).
+ *
+ * @param {string} dateString - Raw date string from backend or entity.
+ * @returns {string} Formatted human-readable date and time (e.g. "Oct 21, 2026, 01:25 AM").
+ */
 function formatDate(dateString) {
     if (!dateString) return '-';
     try {
@@ -602,6 +701,12 @@ function formatDate(dateString) {
     }
 }
 
+/**
+ * Escapes unsafe characters from user-supplied strings to safeguard against Cross-Site Scripting (XSS).
+ *
+ * @param {*} unsafe - Raw input value.
+ * @returns {string} HTML-escaped string safe for DOM insertion.
+ */
 function escapeHtml(unsafe) {
     if (!unsafe) return '';
     return String(unsafe)
@@ -611,3 +716,4 @@ function escapeHtml(unsafe) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+

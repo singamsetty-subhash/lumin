@@ -1,19 +1,31 @@
-:root {
-      --ink: #0f2a3a;
-      --ink2: #1c4156;
-      --paper: #f6f8f9;
-      --white: #fff;
-      --line: #dbe3e8;
-      --text: #25394a;
-      --muted: #5b6f7e;
-      --accent: #e8a923;
-      --accentd: #9a6b05
-    }
+/* ==========================================================================
+   Lumin Consultancy - Core Design System & Master Stylesheet (styles.css)
+   Includes:
+   - CSS Custom Property design tokens (color palette, typography, spacing)
+   - Reset and global base styles
+   - Sticky header, responsive navigation, and mobile drawer styles
+   - Hero banner, typography clamping, and glassmorphic badges
+   - Services grid, recognition badges, and 8-step roadmap
+   - Client showcase cards, expert profile badges, and FAQ accordions
+   - Consultation booking form styles, status alerts, and footer
+   ========================================================================== */
 
-    * {
-      box-sizing: border-box;
-      margin: 0
-    }
+:root {
+  --ink: #0f2a3a;
+  --ink2: #1c4156;
+  --paper: #f6f8f9;
+  --white: #fff;
+  --line: #dbe3e8;
+  --text: #25394a;
+  --muted: #5b6f7e;
+  --accent: #e8a923;
+  --accentd: #9a6b05;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
 
     html {
       scroll-behavior: smooth;

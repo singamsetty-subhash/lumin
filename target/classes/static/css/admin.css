@@ -1,3 +1,15 @@
+/* ==========================================================================
+   Lumin Consultancy - Administrative Portal Stylesheet (admin.css)
+   Includes:
+   - Split login screen layout with responsive background canvas
+   - Authenticated dashboard header, metrics, and search input
+   - Data table design with custom badges, action links, and expand indicators
+   - Accordion sub-row detail card with grid layouts
+   - Action buttons (WhatsApp, Email, Call, Delete)
+   - Centered confirmation modal dialog with backdrop blur
+   - Floating animated toast notifications
+   ========================================================================== */
+
 body {
     background-color: #f1f5f9;
     margin: 0;

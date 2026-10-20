@@ -1,9 +1,16 @@
 /**
- * Lumin Consultancy - Gallery Script
+ * @fileoverview Gallery interactive script for the Lumin Consultancy portal.
+ * Controls background particle animations, mobile navigation drawer controls,
+ * and the responsive image lightbox viewer with keyboard accessibility.
+ *
+ * @author Lumin Technical Team
+ * @version 1.0.0
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Particles on Hero
+  // =========================================================================
+  // Particle Mesh Animation on Hero Header
+  // =========================================================================
   if (typeof particlesJS !== 'undefined') {
     particlesJS('particles-js', {
       particles: {
@@ -23,12 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Menu Toggle & Controls
+  // =========================================================================
+  // Mobile Navigation Drawer Toggle & Controls
+  // =========================================================================
   const menuBtn = document.getElementById('menu');
   const navMenu = document.getElementById('nav');
+
   if (menuBtn && navMenu) {
     const menuText = menuBtn.querySelector('.menu-text');
 
+    /**
+     * Opens the mobile navigation drawer.
+     */
     function openMenu() {
       navMenu.classList.add('open');
       navMenu.classList.add('is-open');
@@ -37,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (menuText) menuText.textContent = 'Close';
     }
 
+    /**
+     * Closes the mobile navigation drawer.
+     */
     function closeMenu() {
       navMenu.classList.remove('open');
       navMenu.classList.remove('is-open');
@@ -55,14 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close when clicking any link inside nav
+    // Close when clicking any nav link
     navMenu.addEventListener('click', (e) => {
       if (e.target.closest('a')) {
         closeMenu();
       }
     });
 
-    // Close when clicking outside
+    // Close when clicking outside the menu container
     document.addEventListener('click', (e) => {
       const isOpen = navMenu.classList.contains('open') || navMenu.classList.contains('is-open');
       if (isOpen && !navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
@@ -85,12 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Lightbox Functionality
+  // =========================================================================
+  // Full-Screen Image Lightbox Viewer
+  // =========================================================================
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
   const cards = document.querySelectorAll('.gallery-card');
 
+  // Attach click listener to each gallery thumbnail card
   cards.forEach(card => {
     card.addEventListener('click', () => {
       const img = card.getAttribute('data-img');
@@ -102,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /**
+   * Closes the lightbox modal and restores body scroll behavior.
+   */
   function closeLightbox() {
     if (lightbox) {
       lightbox.classList.remove('is-open');
@@ -116,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lightboxClose.addEventListener('click', closeLightbox);
   }
 
+  // Close lightbox when clicking the backdrop overlay outside the image
   if (lightbox) {
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
@@ -124,9 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Close lightbox on Escape key press
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && lightbox && lightbox.classList.contains('is-open')) {
       closeLightbox();
     }
   });
 });
+
